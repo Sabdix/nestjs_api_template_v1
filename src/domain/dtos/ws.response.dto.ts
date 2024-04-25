@@ -1,14 +1,22 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   RESPONSE_CODES_CATALOG,
   RESPONSE_MESSAGE_CATALOG,
 } from '../catalogs/response.catalog';
 
 export class WsResponse<T> {
-  constructor(
-    public statusCode: number,
-    public message: string,
-    public data: T,
-  ) {}
+  @ApiProperty()
+  statusCode: number;
+  @ApiProperty()
+  message: string;
+  @ApiProperty()
+  data: T;
+
+  constructor(statusCode: number, message: string, data: T) {
+    this.statusCode = statusCode;
+    this.message = message;
+    this.data = data;
+  }
 
   static buildOkResponse<J>(data: J) {
     return new WsResponse<J>(
